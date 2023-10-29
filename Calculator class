@@ -1,0 +1,199 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+
+public class Calculator implements ActionListener {
+    JFrame frame = new JFrame();
+    JPanel title_panel = new JPanel();
+    JPanel title_panel2 = new JPanel();
+    JPanel title_panel3 = new JPanel();
+    JPanel title_panel4 = new JPanel();
+    JPanel title_panel5 = new JPanel();
+    JPanel title_panel6 = new JPanel();
+    JPanel title_panel7 = new JPanel();
+    JPanel title_panel8 = new JPanel();
+    JPanel title_panel9 = new JPanel();
+    JPanel button_panel = new JPanel();
+    JLabel textfield = new JLabel();
+    JLabel textfield2 = new JLabel();
+    JButton[] buttons = new JButton[16];
+    int a = 0;
+    int b = 0;
+    int output = 0;
+    int operationIndex = -1;
+
+    Calculator() {
+        this.frame.setDefaultCloseOperation(3);
+        this.frame.setSize(600, 1000);
+        this.frame.getContentPane().setBackground(new Color(50, 50, 50));
+        this.frame.setVisible(true);
+        this.textfield2.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        this.frame.getContentPane().add(this.textfield, "Center");
+        this.textfield.setBackground(new Color(255, 255, 255));
+        this.textfield.setForeground(new Color(25, 255, 0));
+        this.textfield.setFont(new Font("Digital-7", 1, 80));
+        this.textfield.setHorizontalAlignment(2);
+        this.textfield.setVerticalAlignment(0);
+        this.textfield.setText("0");
+        this.textfield.setOpaque(true);
+        Border blackline = BorderFactory.createLineBorder(Color.black, 2);
+        this.textfield.setBorder(blackline);
+        Border blackline2 = BorderFactory.createLineBorder(Color.black);
+        this.button_panel.setBorder(blackline2);
+        this.title_panel.setLayout(new BorderLayout());
+        this.title_panel.setPreferredSize(new Dimension(800, 200));
+        this.textfield2.setBackground(new Color(80, 80, 80));
+        this.textfield2.setForeground(new Color(25, 255, 0));
+        this.textfield2.setFont(new Font("Digital-7", 1, 40));
+        this.textfield2.setHorizontalAlignment(0);
+        this.textfield2.setVerticalAlignment(0);
+        this.textfield2.setText("Casio-Ferd-Booty-X200");
+        this.textfield2.setOpaque(true);
+        this.title_panel2.setLayout(new BorderLayout());
+        this.title_panel2.setPreferredSize(new Dimension(800, 50));
+        this.title_panel3.setLayout(new BorderLayout());
+        this.title_panel4.setLayout(new BorderLayout());
+        this.title_panel4.setBackground(new Color(80, 80, 80));
+        this.title_panel4.setPreferredSize(new Dimension(30, 30));
+        this.title_panel5.setLayout(new BorderLayout());
+        this.title_panel5.setBackground(new Color(80, 80, 80));
+        this.title_panel5.setPreferredSize(new Dimension(50, 30));
+        this.title_panel6.setLayout(new BorderLayout());
+        this.title_panel6.setBackground(new Color(80, 80, 80));
+        this.title_panel6.setPreferredSize(new Dimension(30, 50));
+        this.title_panel7.setLayout(new BorderLayout());
+        this.title_panel7.setBackground(new Color(80, 80, 80));
+        this.title_panel7.setPreferredSize(new Dimension(30, 50));
+        this.title_panel8.setLayout(new BorderLayout());
+        this.title_panel8.setBackground(new Color(80, 80, 80));
+        this.title_panel8.setPreferredSize(new Dimension(30, 50));
+        this.title_panel9.setLayout(new BorderLayout());
+        this.title_panel9.setBackground(new Color(80, 80, 80));
+        this.title_panel9.setPreferredSize(new Dimension(30, 50));
+        this.button_panel.setLayout(new GridLayout(4, 4));
+        this.button_panel.setBackground(new Color(0, 0, 0));
+
+        for(int i = 0; i < 16; ++i) {
+            this.buttons[i] = new JButton();
+            this.button_panel.add(this.buttons[i]);
+            this.buttons[i].setFont(new Font("MV Boli", 1, 120));
+            this.buttons[i].setFocusable(false);
+            this.buttons[i].addActionListener(this);
+        }
+
+        this.title_panel.add(this.title_panel4, "North");
+        this.title_panel.add(this.title_panel6, "West");
+        this.title_panel.add(this.title_panel7, "East");
+        this.title_panel3.add(this.title_panel5, "South");
+        this.title_panel3.add(this.title_panel8, "West");
+        this.title_panel3.add(this.title_panel9, "East");
+        this.title_panel2.add(this.textfield2);
+        this.title_panel.add(this.textfield);
+        this.title_panel3.add(this.title_panel2, "North");
+        this.title_panel3.add(this.button_panel, "Center");
+        this.frame.add(this.title_panel, "North");
+        this.frame.add(this.title_panel3, "Center");
+        this.setButtons();
+    }
+
+    public void add() {
+        this.output = this.a + this.b;
+        this.textfield.setText(String.valueOf(this.output));
+    }
+
+    public void subtract() {
+        this.output = this.a - this.b;
+        this.textfield.setText(String.valueOf(this.output));
+    }
+
+    public void muliply() {
+        this.output = this.a * this.b;
+        this.textfield.setText(String.valueOf(this.output));
+    }
+
+    public void divide() {
+        this.output = this.a / this.b;
+        this.textfield.setText(String.valueOf(this.output));
+    }
+
+    public void clear() {
+        this.a = 0;
+        this.b = 0;
+        this.textfield.setText("");
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        ArrayList<Integer> specifiedNumberIndices = new ArrayList(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13));
+
+        for(int i = 0; i < 10; ++i) {
+            if (e.getSource() == this.buttons[(Integer)specifiedNumberIndices.get(i)]) {
+                if (this.textfield.getText().equals("0")) {
+                    this.textfield.setText(this.buttons[(Integer)specifiedNumberIndices.get(i)].getText());
+                } else {
+                    JLabel var10000 = this.textfield;
+                    String var10001 = this.textfield.getText();
+                    var10000.setText(var10001 + this.buttons[(Integer)specifiedNumberIndices.get(i)].getText());
+                }
+            }
+        }
+
+        ArrayList<Integer> specifiedButtonIndices = new ArrayList(Arrays.asList(3, 7, 11, 12, 14));
+
+        for(int i = 0; i < 5; ++i) {
+            if (e.getSource() == this.buttons[(Integer)specifiedButtonIndices.get(i)] && !this.textfield.getText().isEmpty()) {
+                this.a = Integer.parseInt(this.textfield.getText());
+                this.operationIndex = (Integer)specifiedButtonIndices.get(i);
+                this.textfield.setText("");
+            }
+        }
+
+        if (e.getSource() == this.buttons[15] && this.operationIndex != -1) {
+            this.b = Integer.parseInt(this.textfield.getText());
+            if (this.operationIndex == 3) {
+                this.add();
+            } else if (this.operationIndex == 7) {
+                this.subtract();
+            } else if (this.operationIndex == 11) {
+                this.muliply();
+            } else if (this.operationIndex == 14) {
+                this.divide();
+            } else if (this.operationIndex == 12) {
+                this.clear();
+            }
+
+            this.operationIndex = -1;
+        }
+
+    }
+
+    public void setButtons() {
+        this.buttons[0].setText("1");
+        this.buttons[1].setText("2");
+        this.buttons[2].setText("3");
+        this.buttons[3].setText("+");
+        this.buttons[4].setText("4");
+        this.buttons[5].setText("5");
+        this.buttons[6].setText("6");
+        this.buttons[7].setText("-");
+        this.buttons[8].setText("7");
+        this.buttons[9].setText("8");
+        this.buttons[10].setText("9");
+        this.buttons[11].setText("*");
+        this.buttons[12].setText("C");
+        this.buttons[13].setText("0");
+        this.buttons[14].setText("/");
+        this.buttons[15].setText("=");
+    }
+}
